@@ -17,6 +17,7 @@ BLOCKED_SITES = [
     "www.facebook.com", "facebook.com",
     "twitter.com", "www.twitter.com",
     "www.instagram.com", "instagram.com",
+    "x.com", "www.x.com",
 ]
 
 # Blocking hours (24-hour format)
@@ -47,27 +48,33 @@ def is_block_time():
     return BLOCK_HOURS[0] <= now.hour < BLOCK_HOURS[1]
 
 def block_sites():
-    with open(HOSTS_PATH, "r+") as file:
-        content = file.read()
-        for site in BLOCKED_SITES:
-            entry = f"{REDIRECT} {site}\n"
-            if entry not in content:
-                file.write(entry)
-    log("Sites blocked")
-    show_quote()
+    try:
+        with open(HOSTS_PATH, "r+") as file:
+            content = file.read()
+            for site in BLOCKED_SITES:
+                entry = f"{REDIRECT} {site}\n"
+                if entry not in content:
+                    file.write(entry)
+        log("Sites blocked")
+        show_quote()
+    except PermissionError as e:
+        log(f"PermissionError while blocking sites: {e}")
 
 def unblock_sites():
-    with open(HOSTS_PATH, "r+") as file:
-        lines = file.readlines()
-        file.seek(0)
-        for line in lines:
-            if not any(site in line for site in BLOCKED_SITES):
-                file.write(line)
-        file.truncate()
-    log("Sites unblocked")
+    try:
+        with open(HOSTS_PATH, "r+") as file:
+            lines = file.readlines()
+            file.seek(0)
+            for line in lines:
+                if not any(site in line for site in BLOCKED_SITES):
+                    file.write(line)
+            file.truncate()
+        log("Sites unblocked")
+    except PermissionError as e:
+        log(f"PermissionError while unblocking sites: {e}")
 
 if __name__ == "__main__":
-    while True:
+    # while True:
         try:
             if is_block_time():
                 block_sites()

@@ -20,10 +20,28 @@ Blocks sites daily from **8 AM to 10 PM** (configurable in the script).
 - Difficult to disable casually
 - Fully open-source and customizable
 
+---
+
+## ⚠️ Requirements
+
+- macOS
+- Admin privileges (used only during installation)
+
+---
+
 ## 📦 Installation
+
+> You must run the script with `sudo` to allow it to manage system files and services.
 
 ```bash
 git clone https://github.com/yourusername/distraction-shield.git
 cd distraction-shield
 chmod +x install.sh
-./install.sh
+sudo ./install.sh
+
+## 📦 Un Installation
+
+sudo launchctl bootout system /Library/LaunchDaemons/com.blocker.hidden.plist
+sudo rm /Library/LaunchDaemons/com.blocker.hidden.plist
+sudo rm /usr/local/lib/.block_web.py
+sudo rm /usr/local/lib/.quotes.txt
