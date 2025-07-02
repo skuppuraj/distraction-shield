@@ -38,10 +38,13 @@ git clone https://github.com/yourusername/distraction-shield.git
 cd distraction-shield
 chmod +x install.sh
 sudo ./install.sh
+```
 
 ## 📦 Un Installation
 
+```bash
 sudo launchctl bootout system /Library/LaunchDaemons/com.blocker.hidden.plist
 sudo rm /Library/LaunchDaemons/com.blocker.hidden.plist
 sudo rm /usr/local/lib/.block_web.py
 sudo rm /usr/local/lib/.quotes.txt
+```
