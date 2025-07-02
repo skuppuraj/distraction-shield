@@ -48,3 +48,9 @@ sudo rm /Library/LaunchDaemons/com.blocker.hidden.plist
 sudo rm /usr/local/lib/.block_web.py
 sudo rm /usr/local/lib/.quotes.txt
 ```
+
+## Log file 
+
+```bash
+sudo nano ~/Library/Logs/webblock.log
+```
